@@ -7,5 +7,5 @@
 #import <Foundation/Foundation.h>
 
 @interface Chain : NSObject
-
++ (void)getBalance;
 @end
