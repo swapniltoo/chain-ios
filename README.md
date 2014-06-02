@@ -19,7 +19,7 @@ it, simply add the following line to your Podfile:
 
 ## Author
 
-Matt Matteson, matt@mattmatteson.com
+Matt Matteson, matt@chain.com
 
 ## License
 
