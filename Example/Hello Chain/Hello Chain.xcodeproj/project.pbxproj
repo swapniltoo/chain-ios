@@ -21,6 +21,7 @@
 		C9FC588A193D3B4D0004D213 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC586C193D3B4D0004D213 /* UIKit.framework */; };
 		C9FC5892193D3B4D0004D213 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9FC5890193D3B4D0004D213 /* InfoPlist.strings */; };
 		C9FC5894193D3B4D0004D213 /* Hello_ChainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC5893193D3B4D0004D213 /* Hello_ChainTests.m */; };
+		C9FC58A0193D3CB90004D213 /* Chain.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC589F193D3CB90004D213 /* Chain.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		C9FC588F193D3B4D0004D213 /* Hello ChainTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hello ChainTests-Info.plist"; sourceTree = "<group>"; };
 		C9FC5891193D3B4D0004D213 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9FC5893193D3B4D0004D213 /* Hello_ChainTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hello_ChainTests.m; sourceTree = "<group>"; };
+		C9FC589E193D3CB90004D213 /* Chain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chain.h; path = ../../Chain/Chain.h; sourceTree = "<group>"; };
+		C9FC589F193D3CB90004D213 /* Chain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Chain.m; path = ../../Chain/Chain.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,7 @@
 				C9FC588D193D3B4D0004D213 /* Hello ChainTests */,
 				C9FC5867193D3B4D0004D213 /* Frameworks */,
 				C9FC5866193D3B4D0004D213 /* Products */,
+				C9FC589D193D3BC70004D213 /* Chain */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,6 +154,15 @@
 				C9FC5890193D3B4D0004D213 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9FC589D193D3BC70004D213 /* Chain */ = {
+			isa = PBXGroup;
+			children = (
+				C9FC589E193D3CB90004D213 /* Chain.h */,
+				C9FC589F193D3CB90004D213 /* Chain.m */,
+			);
+			name = Chain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9FC5875193D3B4D0004D213 /* main.m in Sources */,
+				C9FC58A0193D3CB90004D213 /* Chain.m in Sources */,
 				C9FC5879193D3B4D0004D213 /* CNAppDelegate.m in Sources */,
 				C9FC587F193D3B4D0004D213 /* CNViewController.m in Sources */,
 			);
