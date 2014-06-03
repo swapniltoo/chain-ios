@@ -17,15 +17,18 @@ pod "Chain"
 
 Chain *chain = [Chain sharedInstanceWithToken:@"GUEST-TOKEN"];
 
-[chain getAddress:@"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB" completionHandler:^(NSDictionary *dictionary, NSError *error) {
+NSString *address = @"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB";
+
+[chain getAddress:address completionHandler:^(NSDictionary *dict, NSError *error) {
   NSLog(@"data=%@ error=%@", dictionary, error);
 }];
 
-[chain getUnspents:@"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB" completionHandler:^(NSDictionary *dictionary, NSError *error) {
+[chain getUnspents:address completionHandler:^(NSDictionary *dict, NSError *error) {
   NSLog(@"data=%@ error=%@", dictionary, error);
 }];
 
-[chain sendTransaction:@"<hex>" completionHandler:^(NSDictionary *dictionary, NSError *error) {
+NSString *hex = @"<hex> representation of transaction";
+[chain sendTransaction:hex completionHandler:^(NSDictionary *dict, NSError *error) {
   NSLog(@"data=%@ error=%@", dictionary, error);
 }];
 
