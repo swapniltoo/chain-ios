@@ -12,9 +12,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     Chain *chainInstance = [Chain sharedInstanceWithToken:@"GUEST-TOKEN"];
+    
     [chainInstance getAddress:@"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB" completionHandler:^(NSDictionary *dictionary, NSError *error) {
         NSLog(@"%@", dictionary);
     }];
+    
+    [chainInstance sendTransaction:@"" completionHandler:^(NSDictionary *dictionary, NSError *error) {
+        
+    }];
+    
     return YES;
 }
 

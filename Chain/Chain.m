@@ -75,4 +75,34 @@
             }] resume];
 }
 
+- (void)sendTransaction:(NSString *)transaction completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"transactions"];
+    NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setHTTPMethod:@"PUT"];
+    
+    NSDictionary *requestDictionary = @{@"hex":transaction};
+    NSError *serializationError = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:requestDictionary options:0 error:&serializationError];
+
+    if (serializationError != nil) {
+        completionHandler(nil, serializationError);
+    }
+    
+    [[[self _newChainSession] uploadTaskWithRequest:urlRequest fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        
+        NSError *returnError = nil;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&returnError];
+        
+        BOOL isStatusOkay = httpResponse.statusCode >= 200 && httpResponse.statusCode < 300;
+        if (!isStatusOkay || returnError == nil) {
+            returnError = [NSError errorWithDomain:@"com.Chain" code:0 userInfo:json];
+        }
+        
+        completionHandler(json, returnError);
+    }] resume];
+}
+
 @end
