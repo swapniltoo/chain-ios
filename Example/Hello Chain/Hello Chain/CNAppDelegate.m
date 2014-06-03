@@ -10,9 +10,11 @@
 
 @implementation CNAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    [Chain getBalance];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    Chain *chainInstance = [Chain sharedInstanceWithToken:@"GUEST-TOKEN"];
+    [chainInstance getAddress:@"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB" completionHandler:^(NSDictionary *dictionary, NSError *error) {
+        NSLog(@"%@", dictionary);
+    }];
     return YES;
 }
 

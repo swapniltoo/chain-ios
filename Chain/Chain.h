@@ -7,5 +7,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Chain : NSObject
-+ (void)getBalance;
++ (instancetype)sharedInstanceWithToken:(NSString *)token;
+
+- (void)getAddress:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
 @end

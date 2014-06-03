@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C9E33F33193E49EE00C0F771 /* CNURLSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E33F32193E49EE00C0F771 /* CNURLSessionDelegate.m */; };
+		C9E33F38193E51B700C0F771 /* chain.der in Resources */ = {isa = PBXBuildFile; fileRef = C9E33F37193E51B700C0F771 /* chain.der */; };
 		C9FC5869193D3B4D0004D213 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC5868193D3B4D0004D213 /* Foundation.framework */; };
 		C9FC586B193D3B4D0004D213 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC586A193D3B4D0004D213 /* CoreGraphics.framework */; };
 		C9FC586D193D3B4D0004D213 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC586C193D3B4D0004D213 /* UIKit.framework */; };
@@ -35,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C9E33F31193E49EE00C0F771 /* CNURLSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CNURLSessionDelegate.h; path = ../../Chain/CNURLSessionDelegate.h; sourceTree = "<group>"; };
+		C9E33F32193E49EE00C0F771 /* CNURLSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CNURLSessionDelegate.m; path = ../../Chain/CNURLSessionDelegate.m; sourceTree = "<group>"; };
+		C9E33F37193E51B700C0F771 /* chain.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = chain.der; path = ../../Chain/chain.der; sourceTree = "<group>"; };
 		C9FC5865193D3B4D0004D213 /* Hello Chain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello Chain.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FC5868193D3B4D0004D213 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9FC586A193D3B4D0004D213 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -159,8 +164,11 @@
 		C9FC589D193D3BC70004D213 /* Chain */ = {
 			isa = PBXGroup;
 			children = (
+				C9E33F37193E51B700C0F771 /* chain.der */,
 				C9FC589E193D3CB90004D213 /* Chain.h */,
 				C9FC589F193D3CB90004D213 /* Chain.m */,
+				C9E33F31193E49EE00C0F771 /* CNURLSessionDelegate.h */,
+				C9E33F32193E49EE00C0F771 /* CNURLSessionDelegate.m */,
 			);
 			name = Chain;
 			sourceTree = "<group>";
@@ -243,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9FC5881193D3B4D0004D213 /* Images.xcassets in Resources */,
+				C9E33F38193E51B700C0F771 /* chain.der in Resources */,
 				C9FC5873193D3B4D0004D213 /* InfoPlist.strings in Resources */,
 				C9FC587C193D3B4D0004D213 /* Main.storyboard in Resources */,
 			);
@@ -264,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9FC5875193D3B4D0004D213 /* main.m in Sources */,
+				C9E33F33193E49EE00C0F771 /* CNURLSessionDelegate.m in Sources */,
 				C9FC58A0193D3CB90004D213 /* Chain.m in Sources */,
 				C9FC5879193D3B4D0004D213 /* CNAppDelegate.m in Sources */,
 				C9FC587F193D3B4D0004D213 /* CNViewController.m in Sources */,
@@ -471,6 +481,7 @@
 				C9FC5899193D3B4D0004D213 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9FC589A193D3B4D0004D213 /* Build configuration list for PBXNativeTarget "Hello ChainTests" */ = {
 			isa = XCConfigurationList;
@@ -479,6 +490,7 @@
 				C9FC589C193D3B4D0004D213 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
