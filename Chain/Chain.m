@@ -7,6 +7,11 @@
 #import "Chain.h"
 #import "CNURLSessionDelegate.h"
 
+typedef enum : NSUInteger {
+    ChainRequestMethodPut,
+    ChainRequestMethodGet,
+} ChainRequestMethod;
+
 @interface Chain()
 @property NSString *token;
 @end
@@ -56,53 +61,72 @@
 - (void)getAddress:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"addresses/%@", address];
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
-    
-    [[[self _newChainSession] dataTaskWithURL:url
-            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                NSDictionary *returnDictionary = nil;
-                NSError *returnError = nil;
-                
-                if (error) {
-                    returnError = error;
-                } else {
-                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&returnError];
-                    if (returnError == nil) {
-                        returnDictionary = json;
-                    }
-                }
-                
-                completionHandler(returnDictionary, returnError);
-            }] resume];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
 - (void)sendTransaction:(NSString *)transaction completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"transactions"];
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
-    
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-    [urlRequest setHTTPMethod:@"PUT"];
-    
+
     NSDictionary *requestDictionary = @{@"hex":transaction};
     NSError *serializationError = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:requestDictionary options:0 error:&serializationError];
-
     if (serializationError != nil) {
         completionHandler(nil, serializationError);
+    } else {
+        [self _startPutTaskWithRequestURL:url data:data completionHandler:completionHandler];
     }
-    
-    [[[self _newChainSession] uploadTaskWithRequest:urlRequest fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        
-        NSError *returnError = nil;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&returnError];
-        
-        BOOL isStatusOkay = httpResponse.statusCode >= 200 && httpResponse.statusCode < 300;
-        if (!isStatusOkay || returnError == nil) {
-            returnError = [NSError errorWithDomain:@"com.Chain" code:0 userInfo:json];
+}
+
+-(void)_startPutTaskWithRequestURL:(NSURL *)url data:(NSData *)data completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    [self _startTaskWithRequestMethod:ChainRequestMethodPut URL:url data:data completionHandler:completionHandler];
+}
+
+
+-(void)_startGetTaskWithRequestURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    [self _startTaskWithRequestMethod:ChainRequestMethodGet URL:url data:nil completionHandler:completionHandler];
+}
+
+-(void)_startTaskWithRequestMethod:(ChainRequestMethod)method URL:(NSURL *)url data:(NSData *)data completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+
+    void(^chainCompletionHandler)(NSData *, NSURLResponse *, NSError *) = ^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            completionHandler(nil, error);
+        } else {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            NSError *parseError = nil;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+            if (parseError) {
+                completionHandler(json, parseError);
+            } else {
+                if (httpResponse.statusCode >= 200 && httpResponse.statusCode < 300) {
+                    completionHandler(json, nil);
+                } else {
+                    NSError *returnError = [NSError errorWithDomain:@"com.Chain" code:0 userInfo:json];
+                    completionHandler(json, returnError);
+                }
+            }
         }
-        
-        completionHandler(json, returnError);
-    }] resume];
+    };
+
+    switch (method) {
+        case ChainRequestMethodPut: {
+            NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+            [urlRequest setHTTPMethod:@"PUT"];
+            [[[self _newChainSession] uploadTaskWithRequest:urlRequest fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                chainCompletionHandler(data, response, error);
+            }] resume];
+        }
+            break;
+        case ChainRequestMethodGet: {
+            [[[self _newChainSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                chainCompletionHandler(data, response, error);
+            }] resume];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end
