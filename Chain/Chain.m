@@ -58,6 +58,12 @@ typedef enum : NSUInteger {
 
 #pragma mark -
 
+- (void)getUnspents:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"addresses/%@/unspents", address];
+    NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
 - (void)getAddress:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"addresses/%@", address];
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
