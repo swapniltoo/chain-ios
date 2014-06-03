@@ -20,16 +20,16 @@ Chain *chain = [Chain sharedInstanceWithToken:@"GUEST-TOKEN"];
 NSString *address = @"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB";
 
 [chain getAddress:address completionHandler:^(NSDictionary *dict, NSError *error) {
-  NSLog(@"data=%@ error=%@", dictionary, error);
+  NSLog(@"data=%@ error=%@", dict, error);
 }];
 
 [chain getUnspents:address completionHandler:^(NSDictionary *dict, NSError *error) {
-  NSLog(@"data=%@ error=%@", dictionary, error);
+  NSLog(@"data=%@ error=%@", dict, error);
 }];
 
 NSString *hex = @"<hex> representation of transaction";
 [chain sendTransaction:hex completionHandler:^(NSDictionary *dict, NSError *error) {
-  NSLog(@"data=%@ error=%@", dictionary, error);
+  NSLog(@"data=%@ error=%@", dict, error);
 }];
 
 ```
