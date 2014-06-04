@@ -12,8 +12,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.requires_arc = true
 
-  s.source_files = 'Classes'
-  s.resources = 'Assets/*.png'
-
+  s.source_files = 'Chain'
+  s.resources = 'Chain/chain.der'
   s.public_header_files = 'Chain/Chain.h'
 end
