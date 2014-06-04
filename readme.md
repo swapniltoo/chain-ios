@@ -8,7 +8,7 @@ Chain is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```
-pod "Chain"
+pod 'Chain', '0.1.1'
 ```
 
 ## Quick Start
