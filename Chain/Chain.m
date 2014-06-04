@@ -18,12 +18,20 @@ typedef enum : NSUInteger {
 
 @implementation Chain
 
+static Chain *sharedInstance = nil;
+
 + (instancetype)sharedInstanceWithToken:(NSString *)token {
-    static Chain *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[Chain alloc] initWithToken:token];
     });
+    return sharedInstance;
+}
+
++ (instancetype)sharedInstance {
+    if (sharedInstance == nil) {
+        NSLog(@"%@ warning sharedInstance called before sharedInstanceWithToken:", self);
+    }
     return sharedInstance;
 }
 
