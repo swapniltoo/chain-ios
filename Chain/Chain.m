@@ -66,7 +66,7 @@ static Chain *sharedInstance = nil;
 
 #pragma mark -
 
-- (void)getUnspents:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+- (void)getAddressUnspents:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"addresses/%@/unspents", address];
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];

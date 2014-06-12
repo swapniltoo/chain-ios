@@ -23,7 +23,7 @@ NSString *address = @"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB";
   NSLog(@"data=%@ error=%@", dict, error);
 }];
 
-[chain getUnspents:address completionHandler:^(NSDictionary *dict, NSError *error) {
+[chain getAddressUnspents:address completionHandler:^(NSDictionary *dict, NSError *error) {
   NSLog(@"data=%@ error=%@", dict, error);
 }];
 
