@@ -22,16 +22,6 @@ NSString *address = @"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB";
 [chain getAddress:address completionHandler:^(NSDictionary *dict, NSError *error) {
   NSLog(@"data=%@ error=%@", dict, error);
 }];
-
-[chain getAddressUnspents:address completionHandler:^(NSDictionary *dict, NSError *error) {
-  NSLog(@"data=%@ error=%@", dict, error);
-}];
-
-NSString *hex = @"<hex> representation of transaction";
-[chain sendTransaction:hex completionHandler:^(NSDictionary *dict, NSError *error) {
-  NSLog(@"data=%@ error=%@", dict, error);
-}];
-
 ```
 
 ## Documentation
