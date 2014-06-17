@@ -33,3 +33,7 @@ NSString *hex = @"<hex> representation of transaction";
 }];
 
 ```
+
+## Documentation
+
+The Chain API Documentation is available at [https://chain.com/docs/ios](https://chain.com/docs/ios)
