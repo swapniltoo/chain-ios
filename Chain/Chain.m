@@ -128,15 +128,24 @@ static Chain *sharedInstance = nil;
         } else {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             NSError *parseError = nil;
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+            
+            // Prepare dictionary.
+            id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+            NSDictionary *jsonDictionary = nil;
+            if ([jsonObject isKindOfClass:[NSDictionary class]]) {
+                jsonDictionary = jsonObject;
+            } else if ([jsonObject isKindOfClass:[NSArray class]]) {
+                jsonDictionary = @{@"result": jsonObject};
+            }
+            
             if (parseError) {
-                completionHandler(json, parseError);
+                completionHandler(jsonDictionary, parseError);
             } else {
                 if (httpResponse.statusCode >= 200 && httpResponse.statusCode < 300) {
-                    completionHandler(json, nil);
+                    completionHandler(jsonDictionary, nil);
                 } else {
-                    NSError *returnError = [NSError errorWithDomain:@"com.Chain" code:0 userInfo:json];
-                    completionHandler(json, returnError);
+                    NSError *returnError = [NSError errorWithDomain:@"com.Chain" code:0 userInfo:jsonDictionary];
+                    completionHandler(jsonDictionary, returnError);
                 }
             }
         }
