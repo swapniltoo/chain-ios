@@ -12,6 +12,7 @@
 + (instancetype)sharedInstance;
 
 - (void)getAddress:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
+- (void)getAddressTransactions:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
 - (void)getAddressTransactions:(NSString *)address limit:(NSInteger)limit completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
 - (void)getAddressUnspents:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
 - (void)getTransaction:(NSString *)transaction completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
