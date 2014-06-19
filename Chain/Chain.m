@@ -97,11 +97,11 @@ static Chain *sharedInstance = nil;
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
-- (void)sendTransaction:(NSString *)transaction completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+- (void)sendTransaction:(NSString *)hex completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"transactions"];
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
 
-    NSDictionary *requestDictionary = @{@"hex":transaction};
+    NSDictionary *requestDictionary = @{@"hex":hex};
     NSError *serializationError = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:requestDictionary options:0 error:&serializationError];
     if (serializationError != nil) {
