@@ -72,8 +72,11 @@ static Chain *sharedInstance = nil;
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
-- (void)getAddressTransactions:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+- (void)getAddressTransactions:(NSString *)address limit:(NSInteger)limit completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"addresses/%@/transactions", address];
+    if (limit) {
+        pathString = [pathString stringByAppendingString:[NSString stringWithFormat:@"?limit=%i", limit]];
+    }
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
@@ -90,11 +93,11 @@ static Chain *sharedInstance = nil;
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
-- (void)sendTransaction:(NSString *)transaction completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+- (void)sendTransaction:(NSString *)hex completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"transactions"];
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
 
-    NSDictionary *requestDictionary = @{@"hex":transaction};
+    NSDictionary *requestDictionary = @{@"hex":hex};
     NSError *serializationError = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:requestDictionary options:0 error:&serializationError];
     if (serializationError != nil) {
@@ -121,15 +124,24 @@ static Chain *sharedInstance = nil;
         } else {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             NSError *parseError = nil;
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+            
+            // Prepare dictionary.
+            id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+            NSDictionary *jsonDictionary = nil;
+            if ([jsonObject isKindOfClass:[NSDictionary class]]) {
+                jsonDictionary = jsonObject;
+            } else if ([jsonObject isKindOfClass:[NSArray class]]) {
+                jsonDictionary = @{@"results": jsonObject};
+            }
+            
             if (parseError) {
-                completionHandler(json, parseError);
+                completionHandler(jsonDictionary, parseError);
             } else {
                 if (httpResponse.statusCode >= 200 && httpResponse.statusCode < 300) {
-                    completionHandler(json, nil);
+                    completionHandler(jsonDictionary, nil);
                 } else {
-                    NSError *returnError = [NSError errorWithDomain:@"com.Chain" code:0 userInfo:json];
-                    completionHandler(json, returnError);
+                    NSError *returnError = [NSError errorWithDomain:@"com.Chain" code:0 userInfo:jsonDictionary];
+                    completionHandler(jsonDictionary, returnError);
                 }
             }
         }
