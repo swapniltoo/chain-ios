@@ -79,7 +79,7 @@ static Chain *sharedInstance = nil;
 - (void)getAddressTransactions:(NSString *)address limit:(NSInteger)limit completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"addresses/%@/transactions", address];
     if (limit) {
-        pathString = [pathString stringByAppendingString:[NSString stringWithFormat:@"?limit=%i", limit]];
+        pathString = [pathString stringByAppendingString:[NSString stringWithFormat:@"?limit=%@", @(limit)]];
     }
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
