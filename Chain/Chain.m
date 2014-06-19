@@ -135,7 +135,7 @@ static Chain *sharedInstance = nil;
             if ([jsonObject isKindOfClass:[NSDictionary class]]) {
                 jsonDictionary = jsonObject;
             } else if ([jsonObject isKindOfClass:[NSArray class]]) {
-                jsonDictionary = @{@"result": jsonObject};
+                jsonDictionary = @{@"results": jsonObject};
             }
             
             if (parseError) {
