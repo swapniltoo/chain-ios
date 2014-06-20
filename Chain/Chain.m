@@ -1,7 +1,7 @@
 //
 //  Chain.m
 //
-//  Copyright (c) 2014 Chain. All rights reserved.
+//  Copyright (c) 2014 Chain Inc. All rights reserved.
 //
 
 #import "Chain.h"

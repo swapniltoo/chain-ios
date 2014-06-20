@@ -1,7 +1,7 @@
 //
 //  Chain.h
 //
-//  Copyright (c) 2014 Chain. All rights reserved.
+//  Copyright (c) 2014 Chain Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

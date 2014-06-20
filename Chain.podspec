@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license  = 'MIT'
   s.author   = {"Matt Matteson" => "matt@chain.com", "Ryan R. Smith" => "ryan@chain.com"}
   s.source   = {:git => "https://github.com/chain-engineering/chain-ios.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/Chain'
+  s.social_media_url = 'https://twitter.com/chain'
 
   s.platform = :ios
   s.ios.deployment_target = '7.0'
