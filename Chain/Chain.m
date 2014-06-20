@@ -111,8 +111,14 @@ static Chain *sharedInstance = nil;
     }
 }
 
-- (void)getBlock:(NSString *)hash completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+- (void)getBlockByHash:(NSString *)hash completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"blocks/%@", hash];
+    NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
+- (void)getBlockByHeight:(NSInteger *)height completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"blocks/%@", @(height)];
     NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
