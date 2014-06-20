@@ -111,10 +111,21 @@ static Chain *sharedInstance = nil;
     }
 }
 
+- (void)getBlock:(NSString *)hash completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"blocks/%@", hash];
+    NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
+- (void)getLatestBlockWithCompletionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"blocks/latest"];
+    NSURL *url = [Chain _newChainURLWithV1BitcoinPath:pathString];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
 -(void)_startPutTaskWithRequestURL:(NSURL *)url data:(NSData *)data completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     [self _startTaskWithRequestMethod:ChainRequestMethodPut URL:url data:data completionHandler:completionHandler];
 }
-
 
 -(void)_startGetTaskWithRequestURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     [self _startTaskWithRequestMethod:ChainRequestMethodGet URL:url data:nil completionHandler:completionHandler];
