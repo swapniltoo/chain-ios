@@ -9,6 +9,7 @@ it, simply add the following line to your Podfile:
 
 ```
 pod 'Chain', '0.1.5'
+
 ```
 
 ## Quick Start
