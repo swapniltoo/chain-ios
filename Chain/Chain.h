@@ -5,8 +5,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#define DEFAULT_BLOCK_CHAIN @"bitcoin"
 
 @interface Chain : NSObject
+
+@property NSString *blockChain;
 
 + (instancetype)sharedInstanceWithToken:(NSString *)token;
 + (instancetype)sharedInstance;
