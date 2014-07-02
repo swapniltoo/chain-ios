@@ -9,13 +9,11 @@ it, simply add the following line to your Podfile:
 
 ```
 pod 'Chain', '0.1.6'
-
 ```
 
 ## Quick Start
 
 ```objc
-
 Chain *chain = [Chain sharedInstanceWithToken:@"GUEST-TOKEN"];
 
 NSString *address = @"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB";
@@ -28,3 +26,11 @@ NSString *address = @"1A3tnautz38PZL15YWfxTeh8MtuMDhEPVB";
 ## Documentation
 
 The Chain API Documentation is available at [https://chain.com/docs/ios](https://chain.com/docs/ios)
+
+## Publishing a CocoaPod
+
+```bash
+$ git tag X.Y.Z
+$ git push origin master --tags
+$ pod trunk push Chain.podspec
+```
