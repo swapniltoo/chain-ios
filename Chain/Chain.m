@@ -136,6 +136,24 @@ static Chain *sharedInstance = nil;
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
+- (void)getBlockOpReturnsByHash:(NSString *)hash completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"block/%@/op-returns", hash];
+    NSURL *url = [Chain _newChainURLWithBlockChain:self.blockChain Path:pathString];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
+- (void)getBlockOpReturnsByHeight:(NSInteger)height completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"block/%@/op-returns", @(height)];
+    NSURL *url = [Chain _newChainURLWithBlockChain:self.blockChain Path:pathString];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
+- (void)getLatestBlockOpReturnsWithCompletionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"block/latest/op-returns"];
+    NSURL *url = [Chain _newChainURLWithBlockChain:self.blockChain Path:pathString];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
 -(void)_startPutTaskWithRequestURL:(NSURL *)url data:(NSData *)data completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     [self _startTaskWithRequestMethod:ChainRequestMethodPut URL:url data:data completionHandler:completionHandler];
 }
