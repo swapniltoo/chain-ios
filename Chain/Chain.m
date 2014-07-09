@@ -92,6 +92,12 @@ static Chain *sharedInstance = nil;
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
+- (void)getAddressOpReturns:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *pathString = [NSString stringWithFormat:@"addresses/%@/op-returns", address];
+    NSURL *url = [Chain _newChainURLWithBlockChain:self.blockChain Path:pathString];
+    [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
 - (void)getTransaction:(NSString *)hash completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"transactions/%@", hash];
     NSURL *url = [Chain _newChainURLWithBlockChain:self.blockChain Path:pathString];
