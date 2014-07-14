@@ -208,18 +208,15 @@ static Chain *sharedInstance = nil;
         case ChainRequestMethodPut: {
             NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
             [urlRequest setHTTPMethod:@"PUT"];
-            NSURLSession *session = [self _newChainSession];
             [[self.session uploadTaskWithRequest:urlRequest fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 chainCompletionHandler(data, response, error);
             }] resume];
         }
             break;
         case ChainRequestMethodGet: {
-            NSURLSession *session = [self _newChainSession];
             [[self.session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 chainCompletionHandler(data, response, error);
             }] resume];
-            [session finishTasksAndInvalidate];
         }
             break;
         default:
