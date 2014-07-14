@@ -85,6 +85,11 @@ static Chain *sharedInstance = nil;
     [self getAddressTransactions:address limit:0 completionHandler:completionHandler];
 }
 
+- (void)getAddressesTransactions:(NSArray *)addresses completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *joinedAddresses = [addresses componentsJoinedByString:@","];
+    [self getAddressTransactions:joinedAddresses limit:0 completionHandler:completionHandler];
+}
+
 - (void)getAddressTransactions:(NSString *)address limit:(NSInteger)limit completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"addresses/%@/transactions", address];
     if (limit) {
@@ -94,12 +99,22 @@ static Chain *sharedInstance = nil;
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
+- (void)getAddressesTransactions:(NSArray *)addresses limit:(NSInteger)limit completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *joinedAddresses = [addresses componentsJoinedByString:@","];
+    [self getAddressesTransactions:joinedAddresses limit:limit completionHandler:completionHandler];
+}
+
 #pragma mark - Unspent Outputs By Address
 
 - (void)getAddressUnspents:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *pathString = [NSString stringWithFormat:@"addresses/%@/unspents", address];
     NSURL *url = [Chain _newChainURLWithBlockChain:self.blockChain Path:pathString];
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
+}
+
+- (void)getAddressesUnspents:(NSArray *)addresses completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *joinedAddresses = [addresses componentsJoinedByString:@","];
+    [self getAddressUnspents:joinedAddresses completionHandler:completionHandler];
 }
 
 #pragma mark - OP_RETURN
