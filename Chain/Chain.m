@@ -74,6 +74,11 @@ static Chain *sharedInstance = nil;
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
+- (void)getAddresses:(NSArray *)addresses completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSString *joinedAddresses = [addresses componentsJoinedByString:@","];
+    [self getAddress:joinedAddresses completionHandler:completionHandler];
+}
+
 #pragma mark - Transaction By Address
 
 - (void)getAddressTransactions:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {

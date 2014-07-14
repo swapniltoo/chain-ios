@@ -17,6 +17,7 @@
 #pragma mark - Address
 
 - (void)getAddress:(NSString *)address completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
+- (void)getAddresses:(NSArray *)addresses completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
 
 #pragma mark - Transaction By Address
 
