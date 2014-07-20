@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = "Chain"
-  s.version  = "0.1.13"
+  s.version  = "0.1.14"
   s.summary  = "The Official iOS SDK for Chain's Bitcoin API"
   s.homepage = "https://chain.com"
   s.license  = 'MIT'
