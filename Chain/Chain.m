@@ -101,7 +101,7 @@ static Chain *sharedInstance = nil;
 
 - (void)getAddressesTransactions:(NSArray *)addresses limit:(NSInteger)limit completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
     NSString *joinedAddresses = [addresses componentsJoinedByString:@","];
-    [self getAddressesTransactions:joinedAddresses limit:limit completionHandler:completionHandler];
+    [self getAddressTransactions:joinedAddresses limit:limit completionHandler:completionHandler];
 }
 
 #pragma mark - Unspent Outputs By Address
