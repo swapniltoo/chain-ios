@@ -50,4 +50,8 @@
 - (void)getBlockByHeight:(NSInteger)height completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
 - (void)getLatestBlockWithCompletionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
 
+#pragma mark - Payment Forwarding
+
+- (void)createPaymentAddress:(NSString *)destinationAddress blockChain:(NSString *)blockChain completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler;
+
 @end
