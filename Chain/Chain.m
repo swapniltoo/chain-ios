@@ -8,7 +8,7 @@
 #import "CNURLSessionDelegate.h"
 
 typedef enum : NSUInteger {
-    ChainRequestMethodPut,
+    ChainRequestMethodPost,
     ChainRequestMethodGet,
 } ChainRequestMethod;
 
@@ -168,7 +168,7 @@ static Chain *sharedInstance = nil;
     if (serializationError != nil) {
         completionHandler(nil, serializationError);
     } else {
-        [self _startPutTaskWithRequestURL:url data:data completionHandler:completionHandler];
+        [self _startPostTaskWithRequestURL:url data:data completionHandler:completionHandler];
     }
 }
 
@@ -194,8 +194,8 @@ static Chain *sharedInstance = nil;
 
 #pragma mark - HTTP Helpers
 
--(void)_startPutTaskWithRequestURL:(NSURL *)url data:(NSData *)data completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
-    [self _startTaskWithRequestMethod:ChainRequestMethodPut URL:url data:data completionHandler:completionHandler];
+-(void)_startPostTaskWithRequestURL:(NSURL *)url data:(NSData *)data completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    [self _startTaskWithRequestMethod:ChainRequestMethodPost URL:url data:data completionHandler:completionHandler];
 }
 
 -(void)_startGetTaskWithRequestURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
@@ -238,9 +238,9 @@ static Chain *sharedInstance = nil;
     };
 
     switch (method) {
-        case ChainRequestMethodPut: {
+        case ChainRequestMethodPost: {
             NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-            [urlRequest setHTTPMethod:@"PUT"];
+            [urlRequest setHTTPMethod:@"POST"];
             [[self.session uploadTaskWithRequest:urlRequest fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                 chainCompletionHandler(data, response, error);
             }] resume];
