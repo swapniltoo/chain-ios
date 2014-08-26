@@ -60,10 +60,14 @@ static Chain *sharedInstance = nil;
     return session;
 }
 
-+ (NSURL *)_newChainURLWithBlockChain:(NSString *)chain Path:(NSString *)path {
++ (NSURL *)_newChainURLWithPath:(NSString *)path {
     NSString *baseURLString = @"https://api.chain.com/v1";
-    NSString *URLString = [NSString stringWithFormat:@"%@/%@/%@", baseURLString, chain, path];
+    NSString *URLString = [NSString stringWithFormat:@"%@/%@", baseURLString, path];
     return [NSURL URLWithString:URLString];
+}
+
++ (NSURL *)_newChainURLWithBlockChain:(NSString *)chain Path:(NSString *)path {
+    return [Chain _newChainURLWithPath:[NSString stringWithFormat:@"%@/%@", chain, path]];
 }
 
 #pragma mark - Address
@@ -192,6 +196,19 @@ static Chain *sharedInstance = nil;
     [self _startGetTaskWithRequestURL:url completionHandler:completionHandler];
 }
 
+#pragma mark - Payment Forwarding
+
+- (void)createPaymentAddress:(NSString *)destinationAddress blockChain:(NSString *)blockChain completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
+    NSURL *url = [Chain _newChainURLWithPath:@"payments"];
+    NSDictionary *requestDictionary = @{@"destination_address":destinationAddress, @"block_chain":blockChain};
+    NSError *serializationError = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:requestDictionary options:0 error:&serializationError];
+    if (serializationError != nil) {
+        completionHandler(nil, serializationError);
+    } else {
+        [self _startPostTaskWithRequestURL:url data:data completionHandler:completionHandler];
+    }
+}
 #pragma mark - HTTP Helpers
 
 -(void)_startPostTaskWithRequestURL:(NSURL *)url data:(NSData *)data completionHandler:(void (^)(NSDictionary *dictionary, NSError *error))completionHandler {
